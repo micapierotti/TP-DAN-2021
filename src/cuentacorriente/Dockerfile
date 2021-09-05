@@ -1,6 +1,4 @@
-FROM openjdk:11.0.7-slim
-LABEL maintainer="pgm@gmail.com"
-ARG JAR_FILE
-ADD target/${JAR_FILE} ms-cuentacorriente.jar
-RUN echo ${JAR_FILE}
+FROM openjdk:11
+ARG JAR_FILE=target/*.jar
+COPY ${JAR_FILE} ms-cuentacorriente.jar
 ENTRYPOINT ["java","-jar","/ms-cuentacorriente.jar"]
