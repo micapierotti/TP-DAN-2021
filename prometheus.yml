@@ -1,0 +1,39 @@
+global:
+    scrape_interval:     15s
+
+scrape_configs:
+- job_name: 'prometheus'
+  scrape_interval: 5s
+
+  static_configs:
+    - targets: ['localhost:9090']
+
+- job_name: 'ms-usuarios'
+  metrics_path: '/actuator/prometheus'
+  scrape_interval: 5s
+  static_configs:
+    - targets: ['192.168.0.168:9000']
+
+- job_name: 'ms-pedidos'
+  metrics_path: '/actuator/prometheus'
+  scrape_interval: 5s
+  static_configs:
+    - targets: ['192.168.0.168:9002']
+
+- job_name: 'ms-productos'
+  metrics_path: '/actuator/prometheus'
+  scrape_interval: 5s
+  static_configs:
+    - targets: ['192.168.0.168:9001']
+
+- job_name: 'ms-cuentacorriente'
+  metrics_path: '/actuator/prometheus'
+  scrape_interval: 5s
+  static_configs:
+    - targets: ['192.168.0.168:9003']
+
+- job_name: 'ms-api-gateway'
+  metrics_path: '/actuator/prometheus'
+  scrape_interval: 5s
+  static_configs:
+    - targets: ['192.168.0.168:8765']
