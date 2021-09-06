@@ -9,7 +9,7 @@ services:
         MYSQL_DB: dan2021
     volumes:
       - ./mysql:/var/lib/mysql/data
-      - ./mysql/SCHEMAS.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./mysql/SCHEMAS.sql:/docker-entrypoint-initdb.d/:ro
     ports:
       - '3306:3306'
     networks:
