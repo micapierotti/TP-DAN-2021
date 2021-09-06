@@ -37,9 +37,9 @@ public class PedidoResource {
     @Autowired
     MaterialService materialSrv;
 
-    @PostMapping(path = "/new")
+    @PostMapping(path = "/new/{empleadoId}")
     @ApiOperation(value = "Carga un pedido")
-    public ResponseEntity<String> crear(@RequestBody Pedido unPedido){
+    public ResponseEntity<String> crear(@RequestBody Pedido unPedido, @PathVariable Integer empleadoId){
 
         System.out.println(" Crear pedido "+ unPedido);
 
@@ -62,7 +62,7 @@ public class PedidoResource {
 
         unPedido.setEstado(EstadoPedido.NUEVO);
         unPedido.setFechaPedido(Instant.now());
-        pedidoSrv.crearPedido(unPedido);
+        pedidoSrv.crearPedido(unPedido, empleadoId);
         return ResponseEntity.status(HttpStatus.CREATED).body("OK");
     }
     

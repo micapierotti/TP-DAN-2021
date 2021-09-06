@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface PedidoService {
 
-    Pedido crearPedido(Pedido p);
+    Pedido crearPedido(Pedido p, Integer empleadoId);
     Pedido agregarDetallePedido(Integer idPedido, DetallePedido detallePedido);
     Pedido actualizarPedido(Pedido pedido, Integer idPedido);
     String actualizarEstado(Integer idPedido,String estado);

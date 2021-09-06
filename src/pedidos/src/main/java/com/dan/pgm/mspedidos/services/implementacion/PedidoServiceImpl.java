@@ -16,6 +16,7 @@ import org.springframework.http.MediaType;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +27,7 @@ import java.util.stream.Collectors;
 public class PedidoServiceImpl implements PedidoService {
 
     private static final String REST_API_OBRA_URL = "http://localhost:9000/api/obra/";
+    private static final String REST_API_VENTA_URL = "http://localhost:9004/api/venta/";
 
     @Autowired
     CircuitBreakerFactory circuitBreakerFactory;
@@ -47,12 +49,12 @@ public class PedidoServiceImpl implements PedidoService {
 
 
     @Override
-    public Pedido crearPedido(Pedido p) {
+    public Pedido crearPedido(Pedido p, Integer empleadoId) {
         this.pedidoRepository.save(p);
-        return enviarPedidoACorralon(p.getId());
+        return enviarPedidoACorralon(p.getId(), empleadoId);
     }
 
-    private Pedido enviarPedidoACorralon(Integer pedidoId) {
+    private Pedido enviarPedidoACorralon(Integer pedidoId, Integer empleadoId) {
         Pedido p = new Pedido();
 
         try {
@@ -95,6 +97,10 @@ public class PedidoServiceImpl implements PedidoService {
 
                 System.out.println("Ids a enviar: "+idsDetalles);
                 jms.convertAndSend("COLA_PEDIDOS", idsDetalles);
+
+                Pedido pedidoGuardado = this.pedidoRepository.save(p);
+                this.gestionarVenta(pedidoGuardado, empleadoId);
+
             } else {
                 p.setEstado(EstadoPedido.RECHAZADO);
                 throw new RuntimeException("No tiene aprobación crediticia: el pedido genera saldo deudor mayor al descubierto y la situación crediticia en BCRA no es de bajo riesgo.");
@@ -102,6 +108,7 @@ public class PedidoServiceImpl implements PedidoService {
         } else {
             p.setEstado(EstadoPedido.PENDIENTE);
         }
+
         return this.pedidoRepository.save(p);
     }
 
@@ -397,7 +404,6 @@ public class PedidoServiceImpl implements PedidoService {
 
         listaIdsObras.forEach( id -> facturasPorCliente.addAll(buscarPedidoPorIdObra(id)));
 
-
         facturasPorClienteDTO = facturasPorCliente.stream()
                 .map(f -> new PedidoDTO(f.getId(),
                         f.getDetalle().stream()
@@ -406,5 +412,22 @@ public class PedidoServiceImpl implements PedidoService {
                 .collect(Collectors.toList());
 
         return facturasPorClienteDTO;
+    }
+
+    /////PARA MICROSERVICIO SUELDO
+    private void gestionarVenta(Pedido nuevoPedido, Integer empleadoId){
+
+        String url = REST_API_VENTA_URL + "/crearVenta/" + empleadoId;
+        WebClient client = WebClient.create(url);
+        CircuitBreaker circuitBreaker = circuitBreakerFactory.create("circuitbreaker");
+
+        Boolean response = client.post()
+                .uri(url)
+                .body(Mono.just(nuevoPedido), Pedido.class)
+                .retrieve()
+                .bodyToMono(Boolean.class)
+                .block();
+
+        System.out.println("response del endpoint crearVenta: "+ response.toString());
     }
 }
