@@ -1,0 +1,5 @@
+CREATE SCHEMA IF NOT EXISTS db_msusuarios;
+CREATE SCHEMA IF NOT EXISTS db_mspedidos;
+CREATE SCHEMA IF NOT EXISTS db_msproductos;
+CREATE SCHEMA IF NOT EXISTS db_mscuentacorriente;
+CREATE SCHEMA IF NOT EXISTS db_mssueldos;

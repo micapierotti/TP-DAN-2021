@@ -8,8 +8,8 @@ services:
         MYSQL_ROOT_PASSWORD: root
         MYSQL_DB: dan2021
     volumes:
-      - ./mys-data:/var/lib/mysql/data
-      - ./ESQUEMA_MYSQL.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./mysql:/var/lib/mysql/data
+      - ./mysql/SCHEMAS.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
       - '3306:3306'
     networks:
