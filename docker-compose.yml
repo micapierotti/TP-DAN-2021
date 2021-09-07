@@ -8,7 +8,7 @@ services:
         MYSQL_ROOT_PASSWORD: root
         MYSQL_DB: dan2021
     volumes:
-      - ./mysql:/var/lib/mysql/data
+      - ./mysql/data:/var/lib/mysql
       - ./mysql/SCHEMAS.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
       - '3306:3306'
@@ -46,6 +46,8 @@ services:
     restart: always
     networks:
       - app
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/db_msusuarios
     depends_on:
       - db
   #ms-pedidos
@@ -59,6 +61,8 @@ services:
     restart: always
     networks:
       - app
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/db_mspedidos
     depends_on:
       - db
   #ms-productos
@@ -72,6 +76,8 @@ services:
     restart: always
     networks:
       - app
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/db_msproductos
     depends_on:
       - db
   #ms-cuentacorriente
@@ -85,6 +91,8 @@ services:
     restart: always
     networks:
       - app
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/db_mscuentacorriente
     depends_on:
       - db
   #API-Gateway
@@ -98,8 +106,6 @@ services:
     restart: always
     networks:
       - app
-    depends_on:
-      - db
   #EUREKA
   eureka-service:
     container_name: eureka-service
@@ -111,8 +117,6 @@ services:
     restart: always
     networks:
       - app
-    depends_on:
-      - db
   #RIBBON
   ribbon-service:
     container_name: ribbon-service
@@ -124,8 +128,6 @@ services:
     restart: always
     networks:
       - app
-    depends_on:
-      - db
   #SERVICIO GRAFANA
   grafana:
     container_name: grafana
