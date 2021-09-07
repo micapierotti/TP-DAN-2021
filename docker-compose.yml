@@ -1,12 +1,12 @@
 version: "3.9"  # optional since v1.27.0 # con docker host.docker.internal
-services: 
+services:
   #base de datos mysql
   db:
     image: mysql
     restart: always
     environment:
-        MYSQL_ROOT_PASSWORD: root
-        MYSQL_DB: dan2021
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DB: dan2021
     volumes:
       - ./mysql/data:/var/lib/mysql
       - ./mysql/SCHEMAS.sql:/docker-entrypoint-initdb.d/init.sql
@@ -14,7 +14,7 @@ services:
       - '3306:3306'
     networks:
       - infra
-      - app       
+      - app
   adminer:
     image: adminer
     restart: always
@@ -93,6 +93,21 @@ services:
       - app
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/db_mscuentacorriente
+    depends_on:
+      - db
+  #ms-sueldos
+  ms-sueldos:
+    container_name: sueldos
+    build:
+      context: ./src/sueldos
+      dockerfile: Dockerfile
+    ports:
+      - 9004:9004
+    restart: always
+    networks:
+      - app
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/db_mssueldos
     depends_on:
       - db
   #API-Gateway
@@ -187,7 +202,7 @@ volumes:
   postgres_data:
     driver: local
 networks:
-    infra:
-        driver: bridge
-    app:
-        driver: bridge    
+  infra:
+    driver: bridge
+  app:
+    driver: bridge
