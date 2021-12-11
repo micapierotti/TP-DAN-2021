@@ -15,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/api/productos")
 @Api(value = "MaterialResource", description = "Permite gestionar los materiales")
 public class MaterialResource {
