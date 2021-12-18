@@ -1,4 +1,4 @@
-package dan.tp2021.productos.services.implementacion;
+/*package dan.tp2021.productos.services.implementacion;
 
 import dan.tp2021.productos.services.ArtemisService;
 import dan.tp2021.productos.services.MaterialService;
@@ -20,4 +20,4 @@ public class ArtemisServiceImpl implements ArtemisService {
     public void recibirMensaje(ArrayList<Integer> idsDetalles){
         materialService.registrarMovimientoStock(idsDetalles);
     }
-}
+}*/
