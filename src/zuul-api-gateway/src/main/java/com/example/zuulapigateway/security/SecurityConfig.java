@@ -59,14 +59,14 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.PUT, "/*")
                 .hasRole("administracion")
 
-                .antMatchers(HttpMethod.GET, "/*/api/cliente/**")
-                .hasAnyRole("lectura", "escritura")
-                .antMatchers(HttpMethod.POST, "/*/api/cliente/**")
-                .hasRole("escritura")
-                .antMatchers(HttpMethod.PUT, "/*/api/cliente/**")
-                .hasRole("escritura")
-                .antMatchers(HttpMethod.DELETE, "/*/api/cliente/**")
-                .hasRole("escritura")
+                //.antMatchers(HttpMethod.GET, "/*/api/cliente/**")
+                //.hasAnyRole("lectura", "escritura")
+                //.antMatchers(HttpMethod.POST, "/*/api/cliente/**")
+                //.hasRole("escritura")
+                //.antMatchers(HttpMethod.PUT, "/*/api/cliente/**")
+                //.hasRole("escritura")
+                //.antMatchers(HttpMethod.DELETE, "/*/api/cliente/**")
+                //.hasRole("escritura")
 
 
                 .antMatchers(HttpMethod.GET, "/api/pedido/**")
@@ -88,14 +88,15 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.DELETE, "/*/api/cuenta/**")
                 .hasRole("escritura")
 
-                .antMatchers(HttpMethod.GET, "/*/api/productos/**")
-                .hasAnyRole("lectura", "escritura")
-                .antMatchers(HttpMethod.POST, "/*/api/productos/**")
-                .hasRole("escritura")
-                .antMatchers(HttpMethod.PUT, "/*/api/productos/**")
-                .hasRole("escritura")
-                .antMatchers(HttpMethod.DELETE, "/*/api/productos/**")
-                .hasRole("escritura")
+
+                //.antMatchers(HttpMethod.GET, "/*/api/productos/**")
+                //.hasAnyRole("lectura", "escritura")
+                //.antMatchers(HttpMethod.POST, "/*/api/productos/**")
+                //.hasRole("escritura")
+                //.antMatchers(HttpMethod.PUT, "/*/api/productos/**")
+                //.hasRole("escritura")
+                //.antMatchers(HttpMethod.DELETE, "/*/api/productos/**")
+                //.hasRole("escritura")
 
                 .anyRequest()
                 .permitAll();
