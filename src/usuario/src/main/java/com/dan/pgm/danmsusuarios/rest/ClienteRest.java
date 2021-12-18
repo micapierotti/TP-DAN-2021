@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 //TODO ERROR 404
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/api/cliente")
 @Api(value = "ClienteRest", description = "Permite gestionar los clientes de la empresa")
 public class ClienteRest {
