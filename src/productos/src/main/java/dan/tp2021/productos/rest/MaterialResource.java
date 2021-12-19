@@ -27,7 +27,7 @@ public class MaterialResource {
     @ApiOperation(value = "Crear un material")
     public ResponseEntity<String> crear(@RequestBody Material nuevoMaterial){
 
-        System.out.println("Crear material: "+ nuevoMaterial);
+        System.out.println("Crear material: "+ nuevoMaterial.toString());
 
         if(nuevoMaterial.getNombre()==null)
             return ResponseEntity.badRequest().body("El material debe tener un nombre especificado.");

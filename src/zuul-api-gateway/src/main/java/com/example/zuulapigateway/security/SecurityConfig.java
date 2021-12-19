@@ -48,16 +48,15 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                
 
-                .antMatchers(HttpMethod.GET, "/*")
-                .hasRole("administracion")
-                .antMatchers(HttpMethod.POST, "/*")
-                .hasRole("administracion")
-                .antMatchers(HttpMethod.DELETE, "/*")
-                .hasRole("administracion")
-                .antMatchers(HttpMethod.PUT, "/*")
-                .hasRole("administracion")
+                //.antMatchers(HttpMethod.GET, "/*")
+                //.hasRole("administracion")
+                //.antMatchers(HttpMethod.POST, "/*")
+                //.hasRole("administracion")
+                //.antMatchers(HttpMethod.DELETE, "/*")
+                //.hasRole("administracion")
+                //.antMatchers(HttpMethod.PUT, "/*")
+                //.hasRole("administracion")
 
                 //.antMatchers(HttpMethod.GET, "/*/api/cliente/**")
                 //.hasAnyRole("lectura", "escritura")
