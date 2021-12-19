@@ -4,7 +4,7 @@ import javax.persistence.*;
 @Entity
 public class Material {
 
-	@Id
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String nombre;
 	private String descripcion;
@@ -67,6 +67,19 @@ public class Material {
 		this.stockActual = stockActual;
 		this.stockMinimo = stockMinimo;
 		this.unidad = unidad;
+	}
+
+	@Override
+	public String toString() {
+		return "Material{" +
+				"id=" + id +
+				", nombre='" + nombre + '\'' +
+				", descripcion='" + descripcion + '\'' +
+				", precio=" + precio +
+				", stockActual=" + stockActual +
+				", stockMinimo=" + stockMinimo +
+				", unidad=" + unidad +
+				'}';
 	}
 
 	public Material() {

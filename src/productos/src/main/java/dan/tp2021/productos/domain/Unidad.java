@@ -28,4 +28,12 @@ public class Unidad {
 		this.id = id;
 		this.descripcion = descripcion;
 	}
+
+	@Override
+	public String toString() {
+		return "Unidad{" +
+				"id=" + id +
+				", descripcion='" + descripcion + '\'' +
+				'}';
+	}
 }
